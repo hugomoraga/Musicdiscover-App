@@ -1,0 +1,69 @@
+<div *ngIf="loading; else loaded">
+    <app-loading></app-loading>
+</div>
+
+<ng-template #loaded>
+    <button (click)="goBack()" class="btn m-3"><i class="fa fa-home"></i> Home</button
+  ><br /><br /><br />
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8">
+        <div class="card bg-dark text-white">
+          <img class="card-img artistInfo" src="{{ artist.picture_xl }}" alt="Card image">
+          <div class="card-img-overlay">
+            <h2 class="display-3 text-dark">{{ artist.name }}</h2>
+            <p class="card-text h4">{{ artist.nb_fan  }} fans </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-4 tracksInfo">
+        <h3 class="display-4 text-info">Top Tracks</h3>
+        <br />
+        <ng-container *ngIf="tracks">
+          <div class="card-black ">
+          <div *ngFor="let track of tracks">
+          <ul class="list-group list-group-flush m-1">
+              <li class="list-group-item-info list-group-item-action active m-1  p-1 text-left">
+                
+                  {{ track.title_short }} |
+                  {{ track.duration }} Seg
+                
+              </li>
+            </ul>
+          </div>
+        </div>
+          <br />
+        </ng-container>
+      </div>
+    </div>
+    <br /><br />
+
+    <div class="container">
+      <h1 class="display-3">Albums</h1>
+      <hr />
+      <br />
+      <div class="card-deck" *ngIf="albumlist">
+        <div class="card" *ngFor="let album of albumlist">
+          <a>
+            <img
+              class="card-img-top"
+              src="{{ album.cover_medium }}"
+              alt="Card image cap"
+            />
+          </a>
+          <div class="card-body">
+            <h5 class="card-title">
+              <a>
+                <h4 class="card-title">
+                  {{ album.title }}
+                </h4>
+              </a>
+            </h5>
+            <p class="card-text">{{ album.release_date | date: "yyyy" }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
